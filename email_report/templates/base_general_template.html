@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+       .footer {
+       		background-color: #006633;            
+            font-family: Open Sans,Lucida sans, Arial !important;
+    		font-size: 16px !important;
+            color: #fff;
+            }
+       
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    	<h1 class="my-3">An update from the CDH @date@</h1>
+
+        <!-- A card with two rows containing two columns of data -->
+		<div class="card bg-light">
+          <h5 class="card-title p-2">Our latest data</h5>
+          <div class="row p-2">
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-7">
+                  <h3>@INST-ST@</h3>
+                </div>
+                <div class= "col-lg-5">
+                  @INST-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Instances of Text Reuse</p>
+            </div>
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-7">
+                  <h3>@WM-ST@</h3>
+                </div>
+                <div class= "col-lg-5">
+                  @WM-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Words of Text Reuse</p>            
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-7">
+                  <h3>@BC-ST@</h3>
+                </div>
+                <div class= "col-lg-5">
+                  @BC-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Books</p>
+            </div>
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-7">
+                  <h3>@PW-ST@</h3>
+                </div>
+                <div class= "col-lg-5">
+                  @PW-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Pairwise Files</p>            
+            </div>
+          </div>
+          <div class="p-2 ax-right">
+          	<a class="btn btn-primary btn-sm" href="https://kitab-project.org/explore">Explore our data</a>
+          </div>
+      	</div>
+      
+        <br>
+        <!-- A space to add custom text for circulation !-->
+        <p class="p-2">The main body of the email. A message to circulate with everyone on the mailing list... </p>
+        <br>
+        <!-- A card containing a list of the top reusers of new texts !-->
+        <div class = "card bg-light">
+          <h5 class="card-title p-2">Top new reusers</h5>
+          <div class ="row p-2">
+
+
+               <div class="row">
+                <div class= "col-8">OpenITI URI</div>
+                <div class= "col-4">Pairwise Files</div>
+               </div>              
+
+
+                <div class="row">
+                  <div class="col-8"><a href="@URLID1@">@0000AUTHOR.BOOK.ID1@</a></div>
+                  <div class="col-4">@id1data@</div>
+                </div>
+                <div class="row">
+                  <div class="col-8"><a href="@URLID2@">@0000AUTHOR.BOOK.ID2@</a></div>
+                  <div class="col-4">@id2data@</div>
+                </div>
+                <div class="row">
+                  <div class="col-8"><a href="@URLID3@">@0000AUTHOR.BOOK.ID3@</a></div>
+                  <div class ="col-4">@id3data@</div>
+                </div>
+                <div class="row">
+                  <div class="col-8"><a href="@URLID4@">@0000AUTHOR.BOOK.ID4@</a></div>
+                  <div class="col-4">@id4data@</div>
+                </div>
+          </div>
+      	</div>
+        <br>
+        
+        
+
+      <!-- The footer containing the AKU-ISMC Logo !-->
+
+      <div class="footer" bgcolor="#006633">
+          <div class="row p-3">
+            <div class="col-8">
+              <p>A message from the Center for Digital Humanities at AKU-ISMC</p>
+            </div>
+            <div class="col-4">
+              <img class="img-fluid" src="https://www.aku.edu/Style%20Library/Images/EntityHeaders/ISMC-Desktop.jpg">
+              </img>
+            </div>
+          </div>
+      </div>
+
+    </div>
+    
+   </body>
+</html>
