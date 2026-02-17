@@ -1,5 +1,6 @@
 from compare_releases import compareRelease
 import re
+import yaml
 
 # Field dict - specifying the field and the corresponding tag to replace in the template
 # all_data field tells the compareRelease obj to return a total count of rows in the compared
@@ -35,23 +36,39 @@ uri_fields = {"tags": {"url": {"pre-numeral": "@URLID", "post-numeral": "@"},
 # Function to replease a uri tag
 def replace_uri_id(text, id_no, tag_type, replacement, uri_fields=uri_fields["tags"]):
     tags = uri_fields[tag_type]
-    regex = tags["pre-numeral"] + id_no + tags["post-numeral"]
-    re.sub(regex, replacement, text)
+    regex = f"{tags['pre-numeral']}{id_no}{tags['post-numeral']}"
+    replacement = str(replacement)
+    text = re.sub(regex, replacement, text)
+    return text
 
 # # Function to use a df of URIs and data to populate email
-# def uri_df_to_email(text, df, uri_fields=uri_fields):
+def uri_df_to_email(text, df,  vers_code):
+
+    data_dict = df.to_dict("records")
+    for idx, data in enumerate(data_dict):
+        vers_uri = data["vers_id"]
+        url = f"https://kitab-project.org/explore/#/visualise/{vers_code}/?books={vers_uri}"
+        id_no = idx+1
+        text = replace_uri_id(text, id_no, "url", url)
+        text = replace_uri_id(text, id_no, "uri", data["id"])
+        text = replace_uri_id(text, id_no, "uri_data", data["count"])
+    
+    return text
+
     
 
 
 
 # Function to replace fields in template
 def replace_stat_tag(text, tag, replacement):
-    replacement = str(replacement)
+    replacement = "{:,}".format(replacement)
+    
     return re.sub(tag, replacement, text)
 
 
-def populate_template(template_text, reuse_tsvs, meta_tsvs, field_dict):
+def populate_template(template_text, config_dict, field_dict):
     """Use the uri_fields dict to populate the template"""
+
 
     # Create fields from the field_dict
     reuse_sum_fields = []
@@ -70,8 +87,8 @@ def populate_template(template_text, reuse_tsvs, meta_tsvs, field_dict):
             elif config["agg_type"] == "dist":
                 meta_dist_fields.append(data_type)
     
-    reuse_compare = compareRelease(reuse_tsvs["release1"], reuse_tsvs["release2"], sum_fields=reuse_sum_fields, dist_count_fields=reuse_dist_fields)
-    meta_compare = compareRelease(meta_tsvs["release1"], meta_tsvs["release2"], sum_fields=meta_sum_fields, dist_count_fields=meta_dist_fields)
+    reuse_compare = compareRelease(config_dict["prev_release"]["reuse_uni"], config_dict["latest_release"]["reuse_uni"], sum_fields=reuse_sum_fields, dist_count_fields=reuse_dist_fields)
+    meta_compare = compareRelease(config_dict["prev_release"]["meta"], config_dict["latest_release"]["meta"], sum_fields=meta_sum_fields, dist_count_fields=meta_dist_fields)
 
     for data_type, config in field_dict.items():
         if config["data"] == "reuse":
@@ -81,14 +98,25 @@ def populate_template(template_text, reuse_tsvs, meta_tsvs, field_dict):
         template_text = replace_stat_tag(template_text, config["count_tag"], data.agg_stats[data_type]["release2"])
         template_text = replace_stat_tag(template_text, config["change_tag"], data.agg_stats[data_type]["diff"])
     
+    # Perform replacements for the uri-specific data
+    reuse_bidir = compareRelease(config_dict["prev_release"]["reuse_bi"], config_dict["latest_release"]["reuse_bi"])
+    top_df = reuse_bidir.aggregate_new_data(return_top=4)
+    template_text = uri_df_to_email(template_text, top_df, config_dict["new_vers_code"])
+    
     return template_text
 
-def create_email_html(template_path, out_html, reuse_tsvs, meta_tsvs, field_dict):
+def create_email_html(template_path, out_html, config_yaml, field_dict):
+
+    # Open config yaml and store as dict
+    with open(config_yaml) as f:
+        config_dict = yaml.load(f, Loader=yaml.SafeLoader)
 
     with open(template_path, "r") as f:
         template_text = f.read()
     
-    written_template = populate_template(template_text, reuse_tsvs, meta_tsvs, field_dict)
+    print(config_dict)
+    
+    written_template = populate_template(template_text, config_dict, field_dict)
 
     with open(out_html, "w") as f:
         f.write(written_template)
@@ -96,13 +124,14 @@ def create_email_html(template_path, out_html, reuse_tsvs, meta_tsvs, field_dict
 
 if __name__ == "__main__":
 
-    reuse_tsvs = {"release1": "E:/Corpus Stats/2023/stats/stats-v8_bi-dir.csv",
-                  "release2": "E:/Corpus Stats/2025/stats/book-stats_bi-dir_2025-1-9.csv"}
+    # reuse_tsvs = {"release1": "E:/Corpus Stats/2023/stats/stats-v8_uni-dir.csv",
+    #               "release2": "E:/Corpus Stats/2025/stats/book-stats_uni-dir_2025-1-9.csv"}
     
-    meta_tsvs = {"release1": "E:/Corpus Stats/2023/OpenITI_metadata_2023-1-8.csv",
-                 "release2": "E:/Corpus Stats/2025/OpenITI_metadata_2025-1-9.tsv"}
+    # meta_tsvs = {"release1": "E:/Corpus Stats/2023/OpenITI_metadata_2023-1-8.csv",
+    #              "release2": "E:/Corpus Stats/2025/OpenITI_metadata_2025-1-9.tsv"}
 
-    template_path = "../templates/rendered_template.html"
+    template_path = "../templates/rendered_template_4.html"
     out_html = "../written_html/test_email.html"
+    config_yml = "config_newsletter.yml"
 
-    create_email_html(template_path, out_html, reuse_tsvs, meta_tsvs, field_dict)
+    create_email_html(template_path, out_html, config_yml, field_dict)

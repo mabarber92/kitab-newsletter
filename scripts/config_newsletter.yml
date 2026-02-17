@@ -1,0 +1,10 @@
+newsletter_date:
+new_vers_code: "2025.1.9"
+prev_release:
+ reuse_uni: E:/Corpus Stats/2023/stats/stats-v8_uni-dir.csv
+ reuse_bi: E:/Corpus Stats/2023/stats/stats-v8_bi-dir.csv
+ meta: E:/Corpus Stats/2023/OpenITI_metadata_2023-1-8.csv
+latest_release:
+ reuse_uni: E:/Corpus Stats/2025/stats/book-stats_uni-dir_2025-1-9.csv
+ reuse_bi: E:/Corpus Stats/2025/stats/book-stats_bi-dir_2025-1-9.csv
+ meta: E:/Corpus Stats/2025/OpenITI_metadata_2025-1-9.tsv

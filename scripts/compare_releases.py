@@ -42,11 +42,11 @@ class compareRelease():
     
     # Function to fetch new ids - present in one dataset not other
     def fetch_new_data(self, field="book1"):
-        old_ids = self.release1["id"].to_list()
-        new_ids_df = self.release2[~self.release2["id"].isin(old_ids)] 
+        old_ids = self.release1[field].to_list()
+        new_ids_df = self.release2[~self.release2[field].isin(old_ids)]
         return new_ids_df
     
-    def aggregate_new_data(self, field="total", agg_type="dist", return_top = 0):
+    def aggregate_new_data(self, field="total", agg_type="dist", return_top = 0, id_field="book1"):
         """If return_top is set to 0 then the function will return all data, otherwise it will return a list of 
         ids and aggregrate stats for the top n up to the specified amount - e.g. 5 will return the top 5 uris for the
         chosen aggregation"""
@@ -54,21 +54,23 @@ class compareRelease():
             print("Specify a correct type of aggregation field. For a sum - 'sum', for a distinct count 'dist'")
             return None
         else:
-            new_ids_df = self.fetch_new_data()
-            new_ids_list = new_ids_df[id].drop_duplicates().to_list()
+            new_ids_df = self.fetch_new_data(field=id_field)
+            new_ids_list = new_ids_df[id_field].drop_duplicates().dropna().to_list()
+            
             dict_for_df = []
             for new_id in new_ids_list:
-                filtered_df = new_ids_df[new_ids_df["id"]==new_id]
+                filtered_df = new_ids_df[new_ids_df[id_field]==new_id]
+                id = filtered_df["_T1"].to_list()[0]
                 if field == "total":
                     count = len(filtered_df)
                 else:
                     if agg_type == "dist":
                         count = len(filtered_df[field].drop_duplicates())
                     elif agg_type == "sum":
-                        count = len(filtered_df[field].sum())
-                dict_for_df.append({"id": id, "count": count})
+                        count = filtered_df[field].sum()
+                dict_for_df.append({"id": new_id, "count": count, "vers_id": id})
             df_out = pd.DataFrame(dict_for_df)
-            df_out = df_out.sort_values(by=["count"])
+            df_out = df_out.sort_values(by=["count"], ascending=False)
             if return_top != 0:
                 df_out = df_out.loc[:return_top-1]
             

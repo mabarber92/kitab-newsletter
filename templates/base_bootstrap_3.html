@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <style>
+       .footer {
+       		background-color: #006633;            
+            font-family: Open Sans,Lucida sans, Arial !important;
+    		font-size: 16px !important;
+            color: #fff;
+            }
+       .h1,h2,h3,h4,h5,h6 {
+
+          line-height: 1.2;
+          font-family: -apple-system,BlinkMacSystemFont,"Roboto","Segoe UI","Helvetica Neue","Lucida Grande",Arial,sans-serif;
+          font-weight: bold
+      	}
+      .i-caret-down {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+
+        /* mask uses the alpha of the svg; this is what you “see” */
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M7.247%2011.14%202.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%27/%3E%3C/svg%3E");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        -webkit-mask-size: contain;
+
+        mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27M7.247%2011.14%202.451%205.658C1.885%205.013%202.345%204%203.204%204h9.592a1%201%200%200%201%20.753%201.659l-4.796%205.48a1%201%200%200%201-1.506%200z%27/%3E%3C/svg%3E");
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+
+        /* IMPORTANT: the mask needs something to “paint” */
+        background-color: red;
+      }
+      .i-caret-up {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27m7.247%204.86-4.796%205.481c-.566.647-.106%201.659.753%201.659h9.592a1%201%200%200%200%20.753-1.659l-4.796-5.48a1%201%200%200%200-1.506%200z%27/%3E%3C/svg%3E");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        -webkit-mask-size: contain;
+
+        mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2016%2016%27%3E%3Cpath%20d%3D%27m7.247%204.86-4.796%205.481c-.566.647-.106%201.659.753%201.659h9.592a1%201%200%200%200%20.753-1.659l-4.796-5.48a1%201%200%200%200-1.506%200z%27/%3E%3C/svg%3E");
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+
+        background-color: green;
+      }
+      .indicator {
+      font-weight: bold;
+      color: green
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      	<div class="row">
+            <div class="col-4">
+              <img class="img-fluid" src="https://kitab-project.org/assets/images/logo-small-2.png" >
+				</img>
+            </div>
+            <div class="col-8">
+                         
+              
+         	</div>
+    	</div>
+		<h3 class="p-3"> Newsletter: @date@ </h3>
+        <!-- A card with two rows containing two columns of data -->
+		<div class="card bg-light">
+          <h5 class="card-title p-2">Our latest data</h5>
+          <div class="row p-2">
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-8">
+                  <h3>@INST-ST@</h3>
+                </div>
+                <div class= "col-lg-4">
+                  <h6 class="indicator">▲</h6>@INST-CH@     
+                </div>
+              </div>
+              <p class="text-xs text-muted">Instances of Text Reuse</p>
+            </div>
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-8">
+                  <h3>@WM-ST@</h3>
+                </div>
+                <div class= "col-lg-4">
+                   <h6 class="indicator">▲</h6>@WM-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Words of Text Reuse</p>            
+            </div>
+          </div>
+          <div class="row p-2">
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-8">
+                  <h3>@BC-ST@</h3>
+                </div>
+                <div class= "col-lg-4">
+                    <h6 class="indicator">▲</h6>@BC-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Books</p>
+            </div>
+            <div class = "col-6">
+              <div class="row">
+                <div class= "col-lg-8">
+                  <h3>@PW-ST@</h3>
+                </div>
+                <div class= "col-lg-4">
+                    <h6 class="indicator">▲</h6>@PW-CH@
+                </div>
+              </div>
+              <p class="text-xs text-muted">Pairwise Files</p>            
+            </div>
+          </div>
+          <div class="p-2 ax-right">
+          	<a class="btn btn-primary btn-sm" href="https://kitab-project.org/explore">Explore our data</a>
+          </div>
+      	</div>
+      
+        <br>
+        <!-- A space to add custom text for circulation !-->
+        <p class="p-2">The main body of the email. A message to circulate with everyone on the mailing list... </p>
+        <br>
+        <!-- A card containing a list of the top reusers of new texts !-->
+        <div class = "card bg-light">
+          <h5 class="card-title p-2">Top new reusers</h5>
+          <div class ="row p-2">
+
+
+               <div class="row">
+                <div class= "col-8"><h6>OpenITI URI</h6></div>
+                 <div class= "col-4"><h6>Pairwise Files</h6></div>
+               </div>              
+
+
+                <div class="row">
+                  <div class="col-8"><a href="@URLID1@">@0000AUTHOR.BOOK.ID1@</a></div>
+                  <div class="col-4">@id1data@</div>
+                </div>
+                <div class="row">
+                  <div class="col-8"><a href="@URLID2@">@0000AUTHOR.BOOK.ID2@</a></div>
+                  <div class="col-4">@id2data@</div>
+                </div>
+                <div class="row">
+                  <div class="col-8"><a href="@URLID3@">@0000AUTHOR.BOOK.ID3@</a></div>
+                  <div class ="col-4">@id3data@</div>
+                </div>
+                <div class="row">
+                  <div class="col-8"><a href="@URLID4@">@0000AUTHOR.BOOK.ID4@</a></div>
+                  <div class="col-4">@id4data@</div>
+                </div>
+          </div>
+      	</div>
+        <br>
+        
+        
+
+      <!-- The footer containing the AKU-ISMC Logo !-->
+
+      <div class="footer" bgcolor="#006633">
+          <div class="row p-3">
+            <div class="col-8">
+              <p>A message from the Center for Digital Humanities at AKU-ISMC</p>
+            </div>
+            <div class="col-4">
+              <img class="img-fluid" src="https://www.aku.edu/Style%20Library/Images/EntityHeaders/ISMC-Desktop.jpg">
+              </img>
+            </div>
+          </div>
+      </div>
+
+    </div>
+    
+   </body>
+</html>
